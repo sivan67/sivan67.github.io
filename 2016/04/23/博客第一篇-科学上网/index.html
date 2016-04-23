@@ -1,0 +1,876 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="科学上网," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="写在前面的话首先当了好久的程序猿竟然一篇博客都没有写过，说起来真是惭愧。究其原因，就是懒。但是每次写程序的时候遇到一些糢糊不清的知识点，就要去 Google 各种搜索（不要问我为什么不用百度），浪费了好多时间，于事便决定自己写博客，将平时学到的知识都整理到这里，也算是一个知识点的备份吧。
+好了，废话不多说，进入本篇正题。
+注：本文测试环境为 Mac">
+<meta property="og:type" content="article">
+<meta property="og:title" content="博客第一篇--科学上网">
+<meta property="og:url" content="http://yoursite.com/2016/04/23/博客第一篇-科学上网/index.html">
+<meta property="og:site_name" content="SIVAN'S BLOG">
+<meta property="og:description" content="写在前面的话首先当了好久的程序猿竟然一篇博客都没有写过，说起来真是惭愧。究其原因，就是懒。但是每次写程序的时候遇到一些糢糊不清的知识点，就要去 Google 各种搜索（不要问我为什么不用百度），浪费了好多时间，于事便决定自己写博客，将平时学到的知识都整理到这里，也算是一个知识点的备份吧。
+好了，废话不多说，进入本篇正题。
+注：本文测试环境为 Mac">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461383568654.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461377168429.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384026370.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461378693798.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461378967179.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384350580.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384398980.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384437965.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384509576.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384595585.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384770073.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461386394277.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387172357.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387217532.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387370564.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388151752.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388237105.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461392923249.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388570423.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391380019.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391554180.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391576682.png">
+<meta property="og:updated_time" content="2016-04-23T06:31:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="博客第一篇--科学上网">
+<meta name="twitter:description" content="写在前面的话首先当了好久的程序猿竟然一篇博客都没有写过，说起来真是惭愧。究其原因，就是懒。但是每次写程序的时候遇到一些糢糊不清的知识点，就要去 Google 各种搜索（不要问我为什么不用百度），浪费了好多时间，于事便决定自己写博客，将平时学到的知识都整理到这里，也算是一个知识点的备份吧。
+好了，废话不多说，进入本篇正题。
+注：本文测试环境为 Mac">
+<meta name="twitter:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461383568654.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 博客第一篇--科学上网 | SIVAN'S BLOG </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SIVAN'S BLOG</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">有梦不难，跟着我去闯</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'z5SwKsd4uwwGQkNsSzDU','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                博客第一篇--科学上网
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-04-23T11:36:58+08:00" content="2016-04-23">
+              2016-04-23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/04/23/博客第一篇-科学上网/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/23/博客第一篇-科学上网/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o">本文阅读量</i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><p>首先当了好久的程序猿竟然一篇博客都没有写过，说起来真是惭愧。究其原因，就是懒。但是每次写程序的时候遇到一些糢糊不清的知识点，就要去 Google 各种搜索（不要问我为什么不用百度），浪费了好多时间，于事便决定自己写博客，将平时学到的知识都整理到这里，也算是一个知识点的备份吧。</p>
+<p>好了，废话不多说，进入本篇正题。</p>
+<p><strong>注：本文测试环境为 Mac</strong></p>
+<a id="more"></a>
+<h2 id="关于科学上网"><a href="#关于科学上网" class="headerlink" title="关于科学上网"></a>关于科学上网</h2><p>天朝的网络对于开发人员来说就是一个噩梦，如果一个程序猿不会科学上网，那……</p>
+<p>本篇课程就来告诉大家如何使用亚马逊 AWS 搭建 shadowsocks </p>
+<p>先说一下 亚马逊 AWS 的缺点吧，网上有人反映说在免费期间内有莫名其妙的扣费情况，如果你对这个很在意的话，可以跳到本文最后，<strong>有！福！利！</strong></p>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><h3 id="申请-AWS"><a href="#申请-AWS" class="headerlink" title="申请 AWS"></a>申请 AWS</h3><ol>
+<li><p>打开 <a href="https://aws.amazon.com/cn/" target="_blank" rel="external">AWS官网</a> 点击<code>注册</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461383568654.png" alt=""><br>需要注意的是，填写个人信息的时候需要使用英文<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461377168429.png" alt=""></p>
+</li>
+<li><p>注册成功后，点击<code>登陆控制台</code></p>
+</li>
+</ol>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384026370.png" alt=""></p>
+<h3 id="新建-EC2"><a href="#新建-EC2" class="headerlink" title="新建 EC2"></a>新建 EC2</h3><ol>
+<li>进入 AWS 主页，选择 EC2<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461378693798.png" alt=""></li>
+<li>右上角地区选择，点击<code>启动实例</code>（推荐选择东京）<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461378967179.png" alt=""></li>
+<li>选择 <code>符合条件的免费套餐</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384350580.png" alt=""></li>
+<li>同样选择 <code>符合条件的免费套餐</code>，点击<code>审核启动</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384398980.png" alt=""></li>
+<li>点击<code>启动</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384437965.png" alt=""></li>
+<li>选择 <code>创建新密钥对</code>，输入密钥名称，点击<code>下载密钥对</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384509576.png" alt=""></li>
+<li>这样就布署好了一个在东京的服务器节点<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384595585.png" alt=""></li>
+<li>点击查看实例，这里的一些信息我们接下来会用到<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384770073.png" alt=""></li>
+</ol>
+<h3 id="连接远程服务器"><a href="#连接远程服务器" class="headerlink" title="连接远程服务器"></a>连接远程服务器</h3><p>Windows 参考官方连接<a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/putty.html" target="_blank" rel="external">使用 PuTTY 从 Windows 连接到 Linux 实例</a></p>
+<p>Mac 按照下面步骤进行</p>
+<ol>
+<li>首先，找到刚刚保存的密钥对文件（*.pem文件）本文假设此文件名为 ec2.pem</li>
+<li>打开终端，进入到 ec2.pem 文件所在目录</li>
+<li>执行<code>chmod 400 ec2.pem</code>修改文件权限</li>
+<li>执行<code>ssh -i ec2.pem ubuntu@你的服务器公有 DNS</code>即可连上远程服务器（服务器公有DNS在实例中可以找到）</li>
+</ol>
+<h3 id="安装-shadowssocks-依赖"><a href="#安装-shadowssocks-依赖" class="headerlink" title="安装 shadowssocks 依赖"></a>安装 shadowssocks 依赖</h3><ol>
+<li>终端输入 <code>sudo -s</code> 获取超级权限</li>
+<li><code>apt-get update</code> 更新apt-get</li>
+<li><code>apt-get install python-pip</code> 安装python包管理工具pip</li>
+<li><code>pip install shadowsocks</code> 安装shadowsocks</li>
+</ol>
+<h3 id="配置-shadowsocks"><a href="#配置-shadowsocks" class="headerlink" title="配置 shadowsocks"></a>配置 shadowsocks</h3><ol>
+<li>在 /etc/ 目录下新建 shadowsocks.json 文件<code>touch /etc/shadowsocks.json</code></li>
+<li>使用 vim 编辑 shadowsocks 配置文件<code>sudo vi /etc/shadowsocks.json</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461386394277.png" alt=""></li>
+<li>进入 vi 编辑模式后可以使用方向键或者<code>h,j,k,l</code>来移动光标，键入<code>i</code>来进入编辑模式，编辑结束后，按<code>Esc</code>退出编辑状态，键入<code>：</code>进入命令行模式，键入<code>wq</code>保存退出</li>
+</ol>
+<ul>
+<li>单一端口配置：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>:<span class="string">"0.0.0.0"</span>, <span class="comment">// 默认0.0.0.0就好</span></span><br><span class="line">    <span class="string">"server_port"</span>:<span class="number">8080</span>, <span class="comment">// 自己定义，下面会用到</span></span><br><span class="line">    <span class="string">"local_address"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="string">"password"</span>:<span class="string">"密码"</span>, <span class="comment">// AWS 密码</span></span><br><span class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>:<span class="keyword">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多端口配置：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>:<span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="string">"port_password"</span>: &#123;</span><br><span class="line">        <span class="string">"端口1"</span>: <span class="string">"连接密码1"</span>,</span><br><span class="line">        <span class="string">"端口2"</span> : <span class="string">"连接密码2"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>: <span class="keyword">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="开启-AWS-入站端口"><a href="#开启-AWS-入站端口" class="headerlink" title="开启 AWS 入站端口"></a>开启 AWS 入站端口</h3><p>配置好 shadowsocks 后，还需要将配置中的端口打开，这样客户端才可以连接到 EC2 中的 shadowsocks 服务</p>
+<ol>
+<li>首先打开运行中的实例，向右滚动窗口，找到<code>安全组</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387172357.png" alt=""></li>
+<li>点击<code>操作</code>，<code>编辑入站规则</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387217532.png" alt=""></li>
+<li>点击<code>添加规则</code>，<code>端口范围</code>填写 shadowscoks 配置文件中的端口号，点击<code>保存</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387370564.png" alt=""></li>
+</ol>
+<h3 id="启动-shadowsocks-服务"><a href="#启动-shadowsocks-服务" class="headerlink" title="启动 shadowsocks 服务"></a>启动 shadowsocks 服务</h3><p>终端输入<code>ssserver -c /etc/shadowsocks.json -d start</code>即可</p>
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><h3 id="客户端下载"><a href="#客户端下载" class="headerlink" title="客户端下载"></a>客户端下载</h3><p>Mac 下载 shadowsocks 客户端，下载连接</p>
+<p><a href="https://github.com/shadowsocks/shadowsocks-iOS/wiki/Shadowsocks-for-OSX-%E5%B8%AE%E5%8A%A9" target="_blank" rel="external">Shadowsocks for OSX</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>下载安装后，会看到一个纸飞机一样的图标</p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388151752.png" alt=""></p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388237105.png" alt=""></p>
+<p>点击<code>服务器</code>，<code>打开服务器设定</code></p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461392923249.png" alt=""></p>
+<p>地址填写实例中的<code>公有 IP</code>，端口填写 shadowsocks 配置文件中的端口号，加密方式<code>aes-256-cfb</code>，密码为 AWS 登陆密码，点击<code>确定</code></p>
+<p>最后，点击纸飞机图标，打开 shadowsocks，选择自动代理模式。</p>
+<p>打开浏览器，输入<a href="https://www.google.com.hk/" target="_blank" rel="external">谷歌</a></p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388570423.png" alt=""></p>
+<p>是不是很激动，又可以学（zhuang）习（bi）了。</p>
+<h2 id="订单检控"><a href="#订单检控" class="headerlink" title="订单检控"></a>订单检控</h2><p><strong>重要的事情忘记跟大家说了，亚马逊 AWS 每个月提供 150GB 免费流量与 750小时免费时长。如果超过免费限制是会自动从绑定的信用卡中扣除的，所以，需要注意自己的使用情况。创建一个账单警报，当卡中有扣费发生时，会收到扣费邮件的提醒。</strong></p>
+<ol>
+<li>进入 AWS 主页，点击<code>我的帐户</code>，<code>帐户设置</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391380019.png" alt=""></li>
+<li>点击<code>首选项</code>，<code>接收账单警报</code>，<code>保存首选项</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391554180.png" alt=""></li>
+<li>点击左上角的<code>服务</code>，<code>账单</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391576682.png" alt=""></li>
+<li>点击<code>设置第一个账单警报</code>，并按照步骤进行，填写一个可以随时收到邮件的邮箱就 OK 了。</li>
+</ol>
+<h2 id="Other-Thing"><a href="#Other-Thing" class="headerlink" title="Other Thing"></a>Other Thing</h2><p>也许有人觉得上面的设置神马的太麻烦了，又要面临随时被扣费的风险，那么，大杀器来了！！！</p>
+<p><a href="https://github.com/getlantern/lantern-binaries" target="_blank" rel="external"><strong>Lantern</strong></a></p>
+<p>谷歌出品，万全免费，用的人都说好。你还在等什么。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>第一次写博客，有什么缺点希望大家能够提醒一下，thx！（不服来打我呀😏）</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000003101075" target="_blank" rel="external">科学上网之EC2搭建shadowsocks</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/科学上网/" rel="tag">#科学上网</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/19/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/04/23/博客第一篇-科学上网/"
+           data-title="博客第一篇--科学上网" data-url="http://yoursite.com/2016/04/23/博客第一篇-科学上网/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Sivan Lee" />
+          <p class="site-author-name" itemprop="name">Sivan Lee</p>
+          <p class="site-description motion-element" itemprop="description">人之所以能，是相信能</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sivan67" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#写在前面的话"><span class="nav-number">1.</span> <span class="nav-text">写在前面的话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于科学上网"><span class="nav-number">2.</span> <span class="nav-text">关于科学上网</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务端配置"><span class="nav-number">3.</span> <span class="nav-text">服务端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#申请-AWS"><span class="nav-number">3.1.</span> <span class="nav-text">申请 AWS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建-EC2"><span class="nav-number">3.2.</span> <span class="nav-text">新建 EC2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接远程服务器"><span class="nav-number">3.3.</span> <span class="nav-text">连接远程服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-shadowssocks-依赖"><span class="nav-number">3.4.</span> <span class="nav-text">安装 shadowssocks 依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-shadowsocks"><span class="nav-number">3.5.</span> <span class="nav-text">配置 shadowsocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开启-AWS-入站端口"><span class="nav-number">3.6.</span> <span class="nav-text">开启 AWS 入站端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-shadowsocks-服务"><span class="nav-number">3.7.</span> <span class="nav-text">启动 shadowsocks 服务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#客户端配置"><span class="nav-number">4.</span> <span class="nav-text">客户端配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端下载"><span class="nav-number">4.1.</span> <span class="nav-text">客户端下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">4.2.</span> <span class="nav-text">配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#订单检控"><span class="nav-number">5.</span> <span class="nav-text">订单检控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Other-Thing"><span class="nav-number">6.</span> <span class="nav-text">Other Thing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写在最后"><span class="nav-number">7.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sivan Lee</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye">本站总访问量</i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sivan67"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>

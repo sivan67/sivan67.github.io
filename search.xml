@@ -4,6 +4,97 @@
   
     
     <entry>
+      <title><![CDATA[博客第一篇--科学上网]]></title>
+      <url>http://yoursite.com/2016/04/23/%E5%8D%9A%E5%AE%A2%E7%AC%AC%E4%B8%80%E7%AF%87-%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91/</url>
+      <content type="html"><![CDATA[<h2 id="写在前面的话"><a href="#写在前面的话" class="headerlink" title="写在前面的话"></a>写在前面的话</h2><p>首先当了好久的程序猿竟然一篇博客都没有写过，说起来真是惭愧。究其原因，就是懒。但是每次写程序的时候遇到一些糢糊不清的知识点，就要去 Google 各种搜索（不要问我为什么不用百度），浪费了好多时间，于事便决定自己写博客，将平时学到的知识都整理到这里，也算是一个知识点的备份吧。</p>
+<p>好了，废话不多说，进入本篇正题。</p>
+<p><strong>注：本文测试环境为 Mac</strong></p>
+<a id="more"></a>
+<h2 id="关于科学上网"><a href="#关于科学上网" class="headerlink" title="关于科学上网"></a>关于科学上网</h2><p>天朝的网络对于开发人员来说就是一个噩梦，如果一个程序猿不会科学上网，那……</p>
+<p>本篇课程就来告诉大家如何使用亚马逊 AWS 搭建 shadowsocks </p>
+<p>先说一下 亚马逊 AWS 的缺点吧，网上有人反映说在免费期间内有莫名其妙的扣费情况，如果你对这个很在意的话，可以跳到本文最后，<strong>有！福！利！</strong></p>
+<h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><h3 id="申请-AWS"><a href="#申请-AWS" class="headerlink" title="申请 AWS"></a>申请 AWS</h3><ol>
+<li><p>打开 <a href="https://aws.amazon.com/cn/" target="_blank" rel="external">AWS官网</a> 点击<code>注册</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461383568654.png" alt=""><br>需要注意的是，填写个人信息的时候需要使用英文<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461377168429.png" alt=""></p>
+</li>
+<li><p>注册成功后，点击<code>登陆控制台</code></p>
+</li>
+</ol>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384026370.png" alt=""></p>
+<h3 id="新建-EC2"><a href="#新建-EC2" class="headerlink" title="新建 EC2"></a>新建 EC2</h3><ol>
+<li>进入 AWS 主页，选择 EC2<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461378693798.png" alt=""></li>
+<li>右上角地区选择，点击<code>启动实例</code>（推荐选择东京）<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461378967179.png" alt=""></li>
+<li>选择 <code>符合条件的免费套餐</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384350580.png" alt=""></li>
+<li>同样选择 <code>符合条件的免费套餐</code>，点击<code>审核启动</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384398980.png" alt=""></li>
+<li>点击<code>启动</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384437965.png" alt=""></li>
+<li>选择 <code>创建新密钥对</code>，输入密钥名称，点击<code>下载密钥对</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384509576.png" alt=""></li>
+<li>这样就布署好了一个在东京的服务器节点<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384595585.png" alt=""></li>
+<li>点击查看实例，这里的一些信息我们接下来会用到<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461384770073.png" alt=""></li>
+</ol>
+<h3 id="连接远程服务器"><a href="#连接远程服务器" class="headerlink" title="连接远程服务器"></a>连接远程服务器</h3><p>Windows 参考官方连接<a href="https://docs.aws.amazon.com/zh_cn/AWSEC2/latest/UserGuide/putty.html" target="_blank" rel="external">使用 PuTTY 从 Windows 连接到 Linux 实例</a></p>
+<p>Mac 按照下面步骤进行</p>
+<ol>
+<li>首先，找到刚刚保存的密钥对文件（*.pem文件）本文假设此文件名为 ec2.pem</li>
+<li>打开终端，进入到 ec2.pem 文件所在目录</li>
+<li>执行<code>chmod 400 ec2.pem</code>修改文件权限</li>
+<li>执行<code>ssh -i ec2.pem ubuntu@你的服务器公有 DNS</code>即可连上远程服务器（服务器公有DNS在实例中可以找到）</li>
+</ol>
+<h3 id="安装-shadowssocks-依赖"><a href="#安装-shadowssocks-依赖" class="headerlink" title="安装 shadowssocks 依赖"></a>安装 shadowssocks 依赖</h3><ol>
+<li>终端输入 <code>sudo -s</code> 获取超级权限</li>
+<li><code>apt-get update</code> 更新apt-get</li>
+<li><code>apt-get install python-pip</code> 安装python包管理工具pip</li>
+<li><code>pip install shadowsocks</code> 安装shadowsocks</li>
+</ol>
+<h3 id="配置-shadowsocks"><a href="#配置-shadowsocks" class="headerlink" title="配置 shadowsocks"></a>配置 shadowsocks</h3><ol>
+<li>在 /etc/ 目录下新建 shadowsocks.json 文件<code>touch /etc/shadowsocks.json</code></li>
+<li>使用 vim 编辑 shadowsocks 配置文件<code>sudo vi /etc/shadowsocks.json</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461386394277.png" alt=""></li>
+<li>进入 vi 编辑模式后可以使用方向键或者<code>h,j,k,l</code>来移动光标，键入<code>i</code>来进入编辑模式，编辑结束后，按<code>Esc</code>退出编辑状态，键入<code>：</code>进入命令行模式，键入<code>wq</code>保存退出</li>
+</ol>
+<ul>
+<li>单一端口配置：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>:<span class="string">"0.0.0.0"</span>, <span class="comment">// 默认0.0.0.0就好</span></span><br><span class="line">    <span class="string">"server_port"</span>:<span class="number">8080</span>, <span class="comment">// 自己定义，下面会用到</span></span><br><span class="line">    <span class="string">"local_address"</span>:<span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="string">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="string">"password"</span>:<span class="string">"密码"</span>, <span class="comment">// AWS 密码</span></span><br><span class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>:<span class="keyword">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>多端口配置：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="string">"server"</span>:<span class="string">"0.0.0.0"</span>,</span><br><span class="line">    <span class="string">"port_password"</span>: &#123;</span><br><span class="line">        <span class="string">"端口1"</span>: <span class="string">"连接密码1"</span>,</span><br><span class="line">        <span class="string">"端口2"</span> : <span class="string">"连接密码2"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="string">"method"</span>:<span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"fast_open"</span>: <span class="keyword">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="开启-AWS-入站端口"><a href="#开启-AWS-入站端口" class="headerlink" title="开启 AWS 入站端口"></a>开启 AWS 入站端口</h3><p>配置好 shadowsocks 后，还需要将配置中的端口打开，这样客户端才可以连接到 EC2 中的 shadowsocks 服务</p>
+<ol>
+<li>首先打开运行中的实例，向右滚动窗口，找到<code>安全组</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387172357.png" alt=""></li>
+<li>点击<code>操作</code>，<code>编辑入站规则</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387217532.png" alt=""></li>
+<li>点击<code>添加规则</code>，<code>端口范围</code>填写 shadowscoks 配置文件中的端口号，点击<code>保存</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461387370564.png" alt=""></li>
+</ol>
+<h3 id="启动-shadowsocks-服务"><a href="#启动-shadowsocks-服务" class="headerlink" title="启动 shadowsocks 服务"></a>启动 shadowsocks 服务</h3><p>终端输入<code>ssserver -c /etc/shadowsocks.json -d start</code>即可</p>
+<h2 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h2><h3 id="客户端下载"><a href="#客户端下载" class="headerlink" title="客户端下载"></a>客户端下载</h3><p>Mac 下载 shadowsocks 客户端，下载连接</p>
+<p><a href="https://github.com/shadowsocks/shadowsocks-iOS/wiki/Shadowsocks-for-OSX-%E5%B8%AE%E5%8A%A9" target="_blank" rel="external">Shadowsocks for OSX</a></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>下载安装后，会看到一个纸飞机一样的图标</p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388151752.png" alt=""></p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388237105.png" alt=""></p>
+<p>点击<code>服务器</code>，<code>打开服务器设定</code></p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461392923249.png" alt=""></p>
+<p>地址填写实例中的<code>公有 IP</code>，端口填写 shadowsocks 配置文件中的端口号，加密方式<code>aes-256-cfb</code>，密码为 AWS 登陆密码，点击<code>确定</code></p>
+<p>最后，点击纸飞机图标，打开 shadowsocks，选择自动代理模式。</p>
+<p>打开浏览器，输入<a href="https://www.google.com.hk/" target="_blank" rel="external">谷歌</a></p>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388570423.png" alt=""></p>
+<p>是不是很激动，又可以学（zhuang）习（bi）了。</p>
+<h2 id="订单检控"><a href="#订单检控" class="headerlink" title="订单检控"></a>订单检控</h2><p><strong>重要的事情忘记跟大家说了，亚马逊 AWS 每个月提供 150GB 免费流量与 750小时免费时长。如果超过免费限制是会自动从绑定的信用卡中扣除的，所以，需要注意自己的使用情况。创建一个账单警报，当卡中有扣费发生时，会收到扣费邮件的提醒。</strong></p>
+<ol>
+<li>进入 AWS 主页，点击<code>我的帐户</code>，<code>帐户设置</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391380019.png" alt=""></li>
+<li>点击<code>首选项</code>，<code>接收账单警报</code>，<code>保存首选项</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391554180.png" alt=""></li>
+<li>点击左上角的<code>服务</code>，<code>账单</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391576682.png" alt=""></li>
+<li>点击<code>设置第一个账单警报</code>，并按照步骤进行，填写一个可以随时收到邮件的邮箱就 OK 了。</li>
+</ol>
+<h2 id="Other-Thing"><a href="#Other-Thing" class="headerlink" title="Other Thing"></a>Other Thing</h2><p>也许有人觉得上面的设置神马的太麻烦了，又要面临随时被扣费的风险，那么，大杀器来了！！！</p>
+<p><a href="https://github.com/getlantern/lantern-binaries" target="_blank" rel="external"><strong>Lantern</strong></a></p>
+<p>谷歌出品，万全免费，用的人都说好。你还在等什么。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>第一次写博客，有什么缺点希望大家能够提醒一下，thx！（不服来打我呀😏）</p>
+<p>参考：</p>
+<ul>
+<li><a href="https://segmentfault.com/a/1190000003101075" target="_blank" rel="external">科学上网之EC2搭建shadowsocks</a></li>
+</ul>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Hello World]]></title>
       <url>http://yoursite.com/2016/04/19/hello-world/</url>
       <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
