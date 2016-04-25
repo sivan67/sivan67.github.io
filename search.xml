@@ -11,7 +11,7 @@
 <p><strong>注：本文测试环境为 Mac</strong></p>
 <a id="more"></a>
 <h2 id="关于科学上网"><a href="#关于科学上网" class="headerlink" title="关于科学上网"></a>关于科学上网</h2><p>天朝的网络对于开发人员来说就是一个噩梦，如果一个程序猿不会科学上网，那……</p>
-<p>本篇课程就来告诉大家如何使用亚马逊 AWS 搭建 shadowsocks </p>
+<p>本篇课程就来告诉大家如何使用亚马逊 AWS 搭建 shadowsocks</p>
 <p>先说一下 亚马逊 AWS 的缺点吧，网上有人反映说在免费期间内有莫名其妙的扣费情况，如果你对这个很在意的话，可以跳到本文最后，<strong>有！福！利！</strong></p>
 <h2 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h2><h3 id="申请-AWS"><a href="#申请-AWS" class="headerlink" title="申请 AWS"></a>申请 AWS</h3><ol>
 <li><p>打开 <a href="https://aws.amazon.com/cn/" target="_blank" rel="external">AWS官网</a> 点击<code>注册</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461383568654.png" alt=""><br>需要注意的是，填写个人信息的时候需要使用英文<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461377168429.png" alt=""></p>
@@ -76,7 +76,7 @@
 <p>打开浏览器，输入<a href="https://www.google.com.hk/" target="_blank" rel="external">谷歌</a></p>
 <p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461388570423.png" alt=""></p>
 <p>是不是很激动，又可以学（zhuang）习（bi）了。</p>
-<h2 id="订单检控"><a href="#订单检控" class="headerlink" title="订单检控"></a>订单检控</h2><p><strong>重要的事情忘记跟大家说了，亚马逊 AWS 每个月提供 150GB 免费流量与 750小时免费时长。如果超过免费限制是会自动从绑定的信用卡中扣除的，所以，需要注意自己的使用情况。创建一个账单警报，当卡中有扣费发生时，会收到扣费邮件的提醒。</strong></p>
+<h2 id="订单检控"><a href="#订单检控" class="headerlink" title="订单检控"></a>订单检控</h2><p><strong>重要的事情忘记跟大家说了，亚马逊 AWS 每个月提供 15GB 免费流量与 750小时免费时长。如果超过免费限制是会自动从绑定的信用卡中扣除的，所以，需要注意自己的使用情况。创建一个账单警报，当卡中有扣费发生时，会收到扣费邮件的提醒。</strong></p>
 <ol>
 <li>进入 AWS 主页，点击<code>我的帐户</code>，<code>帐户设置</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391380019.png" alt=""></li>
 <li>点击<code>首选项</code>，<code>接收账单警报</code>，<code>保存首选项</code><br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1461391554180.png" alt=""></li>
