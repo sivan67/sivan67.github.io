@@ -4,6 +4,28 @@
   
     
     <entry>
+      <title><![CDATA[ORM框架之GreenDao（二）高级用法]]></title>
+      <url>http://yoursite.com/2016/05/10/ORM%E6%A1%86%E6%9E%B6%E4%B9%8BGreenDao%EF%BC%88%E4%BA%8C%EF%BC%89%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</url>
+      <content type="html"><![CDATA[<ul>
+<li><code>notNull()</code> 约束此属性不可为空</li>
+<li>实体类的继承、接口、导包以及序列化</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">person.implementsSerializable(); <span class="comment">// 序列化</span></span><br><span class="line">person.implementsInterface(<span class="string">"com.sivan.A"</span>); <span class="comment">// 实现 A 接口</span></span><br><span class="line">person.setSuperclass(<span class="string">"com.sivan.B"</span>); <span class="comment">// 继承 B 类</span></span><br><span class="line">person.addImport(<span class="string">"com.sivan.C"</span>); <span class="comment">// 导包</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>添加代码或注释</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entity.setCodeBeforeClass(<span class="string">""</span>) <span class="comment">// 在类前添加代码</span></span><br><span class="line"><span class="comment">// 在 `name` 属性前添加注解</span></span><br><span class="line">entity.addStringProperty(<span class="string">"abstract"</span>).codeBeforeField(<span class="string">"@SerializableName(_abstract)"</span>); </span><br><span class="line"><span class="comment">// 这些方法很简单，看名字就知道什么意思了，就不再解释了</span></span><br><span class="line">entity.addStringProperty(<span class="string">"test"</span>).codeBeforeSetter(<span class="string">""</span>).codeBeforeGetter(<span class="string">""</span>).codeBeforeGetterAndSetter(<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>有些时候，我们会在生成的实体类中添加一些属性和方法，但是每次重新运行 Java 项目的时候都会覆盖掉以前的代码，如果不想覆盖自己添加的代码，可以这样设置：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">schema.enableKeepSectionsByDefault(); <span class="comment">// 通过此 schema 创建的实体类都不会覆盖自定义的代码</span></span><br><span class="line">entity.setHasKeepSections(<span class="keyword">true</span>); <span class="comment">// 此实体类不会覆盖自定义的代码</span></span><br></pre></td></tr></table></figure>
+<p>通过上述方法运行 Java 项目后，会在实体类中多出以下注释代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// KEEP INCLUDES - put your custom includes here</span></span><br><span class="line">在这里添加自定义的引用</span><br><span class="line"><span class="comment">// KEEP INCLUDES END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// KEEP FIELDS - put your custom fields here</span></span><br><span class="line">在这里添加自定义属性</span><br><span class="line"><span class="comment">// KEEP FIELDS END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// KEEP METHODS - put your custom methods here</span></span><br><span class="line">在这里添加自定义的方法</span><br><span class="line"><span class="comment">// KEEP METHODS END</span></span><br></pre></td></tr></table></figure>
+<p><em>注意：自定义的代码要写在注释中，并且注释代码不要修改</em></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[ORM 框架之 GreenDao（一）基本使用]]></title>
       <url>http://yoursite.com/2016/05/09/ORM%E6%A1%86%E6%9E%B6%E4%B9%8BGreenDao/</url>
       <content type="html"><![CDATA[<p>GreenDao 是在 Android 开发中广泛使用的数据库框架，其优点是运行效率高，内存消耗少，性能佳（没有考证，网上说的😅）<br>其它一些常用的数据库框架有：</p>
