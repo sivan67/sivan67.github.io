@@ -15,6 +15,7 @@
 <li>添加代码或注释</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entity.setCodeBeforeClass(<span class="string">""</span>) <span class="comment">// 在类前添加代码</span></span><br><span class="line"><span class="comment">// 在 `name` 属性前添加注解</span></span><br><span class="line">entity.addStringProperty(<span class="string">"abstract"</span>).codeBeforeField(<span class="string">"@SerializableName(_abstract)"</span>); </span><br><span class="line"><span class="comment">// 这些方法很简单，看名字就知道什么意思了，就不再解释了</span></span><br><span class="line">entity.addStringProperty(<span class="string">"test"</span>).codeBeforeSetter(<span class="string">""</span>).codeBeforeGetter(<span class="string">""</span>).codeBeforeGetterAndSetter(<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 <ul>
 <li>设置不同的属性名和数据库列名</li>
 </ul>
