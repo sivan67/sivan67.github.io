@@ -92,7 +92,7 @@
 实体类的继承、接口、导包以及序列化
 
 1234person.implementsSerializable(); // 序列化person.implementsInterface(&quot;com.sivan.A&quot;); // 实现 A 接口person.setSuperclass(&quot;com.sivan.B&quot;); // 继承 B 类person.addImport(&quot;">
-<meta property="og:updated_time" content="2016-05-10T14:05:43.000Z">
+<meta property="og:updated_time" content="2016-05-10T14:11:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ORM框架之GreenDao（二）高级用法">
 <meta name="twitter:description" content="notNull() 约束此属性不可为空
@@ -340,12 +340,17 @@
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entity.setCodeBeforeClass(<span class="string">""</span>) <span class="comment">// 在类前添加代码</span></span><br><span class="line"><span class="comment">// 在 `name` 属性前添加注解</span></span><br><span class="line">entity.addStringProperty(<span class="string">"abstract"</span>).codeBeforeField(<span class="string">"@SerializableName(_abstract)"</span>); </span><br><span class="line"><span class="comment">// 这些方法很简单，看名字就知道什么意思了，就不再解释了</span></span><br><span class="line">entity.addStringProperty(<span class="string">"test"</span>).codeBeforeSetter(<span class="string">""</span>).codeBeforeGetter(<span class="string">""</span>).codeBeforeGetterAndSetter(<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
 <ul>
+<li>设置不同的属性名和数据库列名</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置实体类名为 age，数据库列名为 _age</span></span><br><span class="line">entity.addStringProperty(<span class="string">"age"</span>).columnName(<span class="string">"_age"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
 <li>有些时候，我们会在生成的实体类中添加一些属性和方法，但是每次重新运行 Java 项目的时候都会覆盖掉以前的代码，如果不想覆盖自己添加的代码，可以这样设置：</li>
 </ul>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">schema.enableKeepSectionsByDefault(); <span class="comment">// 通过此 schema 创建的实体类都不会覆盖自定义的代码</span></span><br><span class="line">entity.setHasKeepSections(<span class="keyword">true</span>); <span class="comment">// 此实体类不会覆盖自定义的代码</span></span><br></pre></td></tr></table></figure>
 <p>通过上述方法运行 Java 项目后，会在实体类中多出以下注释代码</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// KEEP INCLUDES - put your custom includes here</span></span><br><span class="line">在这里添加自定义的引用</span><br><span class="line"><span class="comment">// KEEP INCLUDES END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// KEEP FIELDS - put your custom fields here</span></span><br><span class="line">在这里添加自定义属性</span><br><span class="line"><span class="comment">// KEEP FIELDS END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// KEEP METHODS - put your custom methods here</span></span><br><span class="line">在这里添加自定义的方法</span><br><span class="line"><span class="comment">// KEEP METHODS END</span></span><br></pre></td></tr></table></figure>
 <p><em>注意：自定义的代码要写在注释中，并且注释代码不要修改</em></p>
+<p>暂时就想到这么多，以后有可能会补充，下一篇博客会将一下如何使用 GreenDao 实现数据库的多表关联，即一对一，一对多，多对多的关系</p>
 
       
     </div>
