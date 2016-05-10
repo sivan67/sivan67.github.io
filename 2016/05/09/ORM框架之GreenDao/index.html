@@ -1,0 +1,872 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android,GreenDao," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="GreenDao 是在 Android 开发中广泛使用的数据库框架，其优点是运行效率高，内存消耗少，性能佳（没有考证，网上说的😅）其它一些常用的数据库框架有：
+
+LitePal
+ActiveAndroid
+OrmLite
+realm
+
+目前还在更新中的有 LitePal，realm。本篇博客只讲 GreenDao 相关知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ORM 框架之 GreenDao（一）基本使用">
+<meta property="og:url" content="http://yoursite.com/2016/05/09/ORM框架之GreenDao/index.html">
+<meta property="og:site_name" content="SIVAN'S BLOG">
+<meta property="og:description" content="GreenDao 是在 Android 开发中广泛使用的数据库框架，其优点是运行效率高，内存消耗少，性能佳（没有考证，网上说的😅）其它一些常用的数据库框架有：
+
+LitePal
+ActiveAndroid
+OrmLite
+realm
+
+目前还在更新中的有 LitePal，realm。本篇博客只讲 GreenDao 相关知识">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462853881103.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462858757141.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462532614509.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462533231310.png">
+<meta property="og:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462859442071.png">
+<meta property="og:updated_time" content="2016-05-10T09:14:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ORM 框架之 GreenDao（一）基本使用">
+<meta name="twitter:description" content="GreenDao 是在 Android 开发中广泛使用的数据库框架，其优点是运行效率高，内存消耗少，性能佳（没有考证，网上说的😅）其它一些常用的数据库框架有：
+
+LitePal
+ActiveAndroid
+OrmLite
+realm
+
+目前还在更新中的有 LitePal，realm。本篇博客只讲 GreenDao 相关知识">
+<meta name="twitter:image" content="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462853881103.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> ORM 框架之 GreenDao（一）基本使用 | SIVAN'S BLOG </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">SIVAN'S BLOG</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">有梦不难，跟着我去闯</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="st-search-show-outputs">
+          
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'z5SwKsd4uwwGQkNsSzDU','2.0.0');
+</script>
+
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                ORM 框架之 GreenDao（一）基本使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-09T19:43:34+08:00" content="2016-05-09">
+              2016-05-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/09/ORM框架之GreenDao/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/09/ORM框架之GreenDao/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o">本文阅读量</i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>GreenDao 是在 Android 开发中广泛使用的数据库框架，其优点是运行效率高，内存消耗少，性能佳（没有考证，网上说的😅）<br>其它一些常用的数据库框架有：</p>
+<ul>
+<li><a href="https://github.com/LitePalFramework/LitePal" target="_blank" rel="external">LitePal</a></li>
+<li><a href="https://github.com/pardom/ActiveAndroid" target="_blank" rel="external">ActiveAndroid</a></li>
+<li><a href="https://github.com/j256/ormlite-android" target="_blank" rel="external">OrmLite</a></li>
+<li><a href="https://github.com/realm/realm-java" target="_blank" rel="external">realm</a></li>
+</ul>
+<p><em>目前还在更新中的有 <code>LitePal</code>，<code>realm</code>。本篇博客只讲 GreenDao 相关知识</em></p>
+<a id="more"></a>
+<p>首先附上 GreenDao 官网和 github 地址<br><a href="https://github.com/greenrobot/greenDAO" target="_blank" rel="external">GreenDao github</a><br><a href="http://greenrobot.org/greendao/" target="_blank" rel="external">GreenDao 官网</a></p>
+<h2 id="如何使用-GreenDao"><a href="#如何使用-GreenDao" class="headerlink" title="如何使用 GreenDao"></a>如何使用 GreenDao</h2><h3 id="在-Android-工程中配置-GreenDao-Generater-模块"><a href="#在-Android-工程中配置-GreenDao-Generater-模块" class="headerlink" title="在 Android 工程中配置 GreenDao Generater 模块"></a>在 Android 工程中配置 GreenDao Generater 模块</h3><p>说白了就是配置 GreenDao 生成的代码块存放路径</p>
+<ul>
+<li>首先在 <code>src/main</code> 目录下新建与 <code>java</code> 同级的 <code>java-gen</code> 目录</li>
+<li>在 <code>app</code> 的 <code>build.gradle</code> 中的 <code>android</code> 模块中添加如下代码</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sourceSets &#123;</span><br><span class="line">       main &#123;</span><br><span class="line">           java.srcDirs = [<span class="string">'src/main/java'</span>, <span class="string">'src/main/java-gen'</span>]</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>并添加依赖 <code>compile ’org.greenrobot:greendao:2.2.0‘</code></p>
+<h3 id="新建-GreenDao-Generator-模块（Java-工程）"><a href="#新建-GreenDao-Generator-模块（Java-工程）" class="headerlink" title="新建 GreenDao Generator 模块（Java 工程）"></a>新建 GreenDao Generator 模块（Java 工程）</h3><ul>
+<li>新建一个 Java 工程，<code>File -&gt; New -&gt; New Module -&gt; Java Library</code></li>
+</ul>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462853881103.png" alt=""></p>
+<ul>
+<li>在新建的 Java 工程中的 <code>build.gradle</code> 中加入依赖 <code>compile ’org.greenrobot:greendao-generator:2.2.0‘</code></li>
+<li><p>定义一个 <code>Schema</code>，<code>Schema schema = new Schema(1, &quot;com.sivan.greendaopractice&quot;);</code></p>
+<ul>
+<li>第一个参数为版本号</li>
+<li>第二个参数为包名</li>
+</ul>
+</li>
+<li><p>编写添加实体类的代码，如下</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 一个实体类对应一张数据库表，此处表名为 PERSON （即类名）</span></span><br><span class="line">Entity person = schema.addEntity(<span class="string">"Person"</span>);</span><br><span class="line"><span class="comment">// 也可以重新命名表名</span></span><br><span class="line"><span class="comment">// person.setTableName("People");</span></span><br><span class="line"><span class="comment">// 定义一个主键</span></span><br><span class="line">person.addIdProperty().primaryKey();</span><br><span class="line"><span class="comment">// 定义一个非空的列，列名为 NAME</span></span><br><span class="line">person.addStringProperty(<span class="string">"name"</span>).notNull();</span><br><span class="line"><span class="comment">// 可以使用此方法定义实体类的属性名和数据库的列名不同，如下实体类名为 sex，列名为_SEX</span></span><br><span class="line">person.addStringProperty(<span class="string">"sex"</span>).columnName(<span class="string">"_sex"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>最后生成实体类 <code>new DaoGenerator().generateAll(schema, &quot;../GreenDaoPractice/app/src/main/java-gen&quot;)</code><ul>
+<li>第一个参数为 <code>schema</code></li>
+<li>第二个参数为文件生成路径</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462858757141.png" alt=""></p>
+<p>完整代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GreenDaoGenerate</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		Schema schema = <span class="keyword">new</span> Schema(<span class="number">1</span>, <span class="string">"com.sivan.greendaopractice"</span>);</span><br><span class="line">		addPerson(schema);</span><br><span class="line">		<span class="keyword">new</span> DaoGenerator().generateAll(schema, <span class="string">"../GreenDaoPractice/app/src/main/java-gen"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">addPerson</span><span class="params">(Schema schema)</span> </span>&#123;</span><br><span class="line">		Entity person = schema.addEntity(<span class="string">"Person"</span>);</span><br><span class="line">		person.addIdProperty().primaryKey();</span><br><span class="line">		person.addStringProperty(<span class="string">"name"</span>).notNull();</span><br><span class="line">		person.addStringProperty(<span class="string">"sex"</span>).columnName(<span class="string">"_sex"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行 Java 工程</li>
+</ul>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462532614509.png" alt=""></p>
+<p>如果出下下面的提示，表示成功了<br><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462533231310.png" alt=""></p>
+<ul>
+<li>接下来看一下 Android 工程中的 <code>java-gen</code> 目录</li>
+</ul>
+<p><img src="http://7xrk97.com1.z0.glb.clouddn.com/markdown/1462859442071.png" alt=""></p>
+<h3 id="在-Android-工程中进行数据库操作"><a href="#在-Android-工程中进行数据库操作" class="headerlink" title="在 Android 工程中进行数据库操作"></a>在 Android 工程中进行数据库操作</h3><p>接下来我们就可以对数据库进行 CRUD （增删改查）操作了<br>具体看代码，基本上都有注释了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">	<span class="meta">@BindView</span>(R.id.et_name)</span><br><span class="line">	EditText mEtName;</span><br><span class="line">	<span class="meta">@BindView</span>(R.id.et_sex)</span><br><span class="line">	EditText mEtSex;</span><br><span class="line">	<span class="meta">@BindView</span>(R.id.list_view)</span><br><span class="line">	ListView mListView;</span><br><span class="line">	<span class="meta">@BindView</span>(R.id.et_id)</span><br><span class="line">	EditText mEtId;</span><br><span class="line">	<span class="keyword">private</span> DaoMaster.DevOpenHelper mHelper;</span><br><span class="line">	<span class="keyword">private</span> SQLiteDatabase db;</span><br><span class="line">	<span class="keyword">private</span> DaoSession mDaoSession;</span><br><span class="line">	<span class="keyword">private</span> DaoMaster mDaoMaster;</span><br><span class="line">	<span class="keyword">private</span> PersonDao mPersonDao;</span><br><span class="line">	<span class="keyword">private</span> Cursor cursor;</span><br><span class="line">	<span class="keyword">private</span> SimpleCursorAdapter mCursorAdapter;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> String sex;</span><br><span class="line">	<span class="keyword">private</span> String id;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">		setContentView(R.layout.activity_main);</span><br><span class="line">		ButterKnife.bind(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 第一个参数为 context，第二个参数为数据库表名，第三个参数通常为 null</span></span><br><span class="line">		mHelper = <span class="keyword">new</span> DaoMaster.DevOpenHelper(<span class="keyword">this</span>, <span class="string">"test-db"</span>, <span class="keyword">null</span>);</span><br><span class="line">		db = mHelper.getWritableDatabase();</span><br><span class="line">		mDaoMaster = <span class="keyword">new</span> DaoMaster(db);</span><br><span class="line">		mDaoSession = mDaoMaster.newSession();</span><br><span class="line">		<span class="comment">// 得到 Dao 对象，数据库的 CRUD 操作都是通过此对象来进行</span></span><br><span class="line">		mPersonDao = mDaoSession.getPersonDao();</span><br><span class="line">		<span class="comment">// 遍历表中所有的数据</span></span><br><span class="line">		cursor = db.query(mPersonDao.getTablename(), mPersonDao.getAllColumns(), <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">		<span class="comment">// 通过 PersonDao 的静态内部类得到字段所对应的 列名</span></span><br><span class="line">		String[] from = &#123;PersonDao.Properties.Name.columnName, PersonDao.Properties.Sex.columnName&#125;;</span><br><span class="line">		<span class="keyword">int</span>[] to = &#123;android.R.id.text1, android.R.id.text2&#125;;</span><br><span class="line">		<span class="comment">// 使用 SimpleCursorAdapter 将数据库中的数据展示到 ListView 上</span></span><br><span class="line">		mCursorAdapter = <span class="keyword">new</span> SimpleCursorAdapter(<span class="keyword">this</span>, android.R.layout.simple_list_item_2, cursor, from, to, Adapter.NO_SELECTION);</span><br><span class="line">		mListView.setAdapter(mCursorAdapter);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">search</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 通过构建 QueryBuilder 来实现查询功能</span></span><br><span class="line">		QueryBuilder&lt;Person&gt; queryBuilder = mPersonDao.queryBuilder().where(PersonDao.Properties.Name.eq(name));</span><br><span class="line">		<span class="comment">// .list() 方法会返回实体类集合</span></span><br><span class="line">		List&lt;Person&gt; persons = queryBuilder.list();</span><br><span class="line">		<span class="comment">// 如果想得到唯一的结果，使用 .unique() 方法</span></span><br><span class="line">		<span class="comment">// Person person = queryBuilder.unique();</span></span><br><span class="line">		<span class="keyword">new</span> AlertDialog.Builder(<span class="keyword">this</span>).setMessage(persons != <span class="keyword">null</span> &amp;&amp; persons.size() &gt; <span class="number">0</span> ? persons.get(<span class="number">0</span>).getName() + <span class="string">"--&gt;"</span> + persons.get(<span class="number">0</span>).getSex() : <span class="string">"查无此数据"</span>).setPositiveButton(<span class="string">"确定"</span>, <span class="keyword">null</span>).create().show();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		Person person = <span class="keyword">new</span> Person(<span class="keyword">null</span>, name, sex);</span><br><span class="line">		<span class="comment">// 通过 insert 方法向数据库中添加数据，因为设置了 id 为主键，所以这里 id 填 null</span></span><br><span class="line">		mPersonDao.insert(person);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@OnClick</span>(&#123;R.id.btn_add, R.id.btn_search, R.id.btn_update, R.id.btn_delete&#125;)</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">		name = mEtName.getText().toString().trim();</span><br><span class="line">		sex = mEtSex.getText().toString().trim();</span><br><span class="line">		id = mEtId.getText().toString().trim();</span><br><span class="line">		<span class="keyword">switch</span> (view.getId()) &#123;</span><br><span class="line">				<span class="keyword">case</span> R.id.btn_add:</span><br><span class="line">					add();</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> R.id.btn_search:</span><br><span class="line">					search();</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> R.id.btn_update:</span><br><span class="line">					update();</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">case</span> R.id.btn_delete:</span><br><span class="line">					delete();</span><br><span class="line">					<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		Cursor cursor = db.query(mPersonDao.getTablename(), mPersonDao.getAllColumns(), <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">		<span class="comment">// 通过交换 cursor 来更新 UI</span></span><br><span class="line">		mCursorAdapter.swapCursor(cursor);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">delete</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 通过主键来删除数据</span></span><br><span class="line">		mPersonDao.deleteByKey(Long.valueOf(id));</span><br><span class="line">		<span class="comment">// 删除所有</span></span><br><span class="line">		<span class="comment">// mPersonDao.deleteAll();</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 通过 update 方法更新数据库中的数据</span></span><br><span class="line">		mPersonDao.update(<span class="keyword">new</span> Person(Long.valueOf(id), name, sex));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>GreenDao 的基本使用就介绍这么多，下一篇博客中我会讲一下 GreenDao 的一些高级用法</p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag">#Android</a>
+          
+            <a href="/tags/GreenDao/" rel="tag">#GreenDao</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/04/28/AndroidStudio中Gradle依赖的统一管理_160428175314/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/09/ORM框架之GreenDao/"
+           data-title="ORM 框架之 GreenDao（一）基本使用" data-url="http://yoursite.com/2016/05/09/ORM框架之GreenDao/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="Sivan Lee" />
+          <p class="site-author-name" itemprop="name">Sivan Lee</p>
+          <p class="site-description motion-element" itemprop="description">人之所以能，是相信能</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sivan67" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用-GreenDao"><span class="nav-number">1.</span> <span class="nav-text">如何使用 GreenDao</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在-Android-工程中配置-GreenDao-Generater-模块"><span class="nav-number">1.1.</span> <span class="nav-text">在 Android 工程中配置 GreenDao Generater 模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建-GreenDao-Generator-模块（Java-工程）"><span class="nav-number">1.2.</span> <span class="nav-text">新建 GreenDao Generator 模块（Java 工程）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-Android-工程中进行数据库操作"><span class="nav-number">1.3.</span> <span class="nav-text">在 Android 工程中进行数据库操作</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sivan Lee</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye">本站总访问量</i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sivan67"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
