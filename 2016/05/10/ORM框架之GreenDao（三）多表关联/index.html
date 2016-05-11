@@ -80,25 +80,19 @@
 
 
 
-<meta name="description" content="notNull() 约束此属性不可为空
-实体类的继承、接口、导包以及序列化
-
-1234person.implementsSerializable(); // 序列化person.implementsInterface(&quot;com.sivan.A&quot;); // 实现 A 接口person.setSuperclass(&quot;com.sivan.B&quot;); // 继承 B 类person.addImport(&quot;">
+<meta name="description" content="GreenDao 中，实体间的关联通过 to-one 和 to-many 来实现。
+一对一在 GreenDao 中实现一对一的关联需要讲一个实体类的主键作为另一个实体类的外键。比如一个 Person 有一个 IDCard（身份证），这两者是一一对应的关系，同时，Person 有 name（主键）、sex 和 age 三个属性，IDCard 有 CardId 和 CardId（主键） 和 Valid">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ORM框架之GreenDao（二）高级用法">
-<meta property="og:url" content="http://yoursite.com/2016/05/10/ORM框架之GreenDao（二）高级用法/index.html">
+<meta property="og:title" content="ORM框架之GreenDao（三）多表关联">
+<meta property="og:url" content="http://yoursite.com/2016/05/10/ORM框架之GreenDao（三）多表关联/index.html">
 <meta property="og:site_name" content="SIVAN'S BLOG">
-<meta property="og:description" content="notNull() 约束此属性不可为空
-实体类的继承、接口、导包以及序列化
-
-1234person.implementsSerializable(); // 序列化person.implementsInterface(&quot;com.sivan.A&quot;); // 实现 A 接口person.setSuperclass(&quot;com.sivan.B&quot;); // 继承 B 类person.addImport(&quot;">
-<meta property="og:updated_time" content="2016-05-10T14:16:28.000Z">
+<meta property="og:description" content="GreenDao 中，实体间的关联通过 to-one 和 to-many 来实现。
+一对一在 GreenDao 中实现一对一的关联需要讲一个实体类的主键作为另一个实体类的外键。比如一个 Person 有一个 IDCard（身份证），这两者是一一对应的关系，同时，Person 有 name（主键）、sex 和 age 三个属性，IDCard 有 CardId 和 CardId（主键） 和 Valid">
+<meta property="og:updated_time" content="2016-05-11T12:36:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ORM框架之GreenDao（二）高级用法">
-<meta name="twitter:description" content="notNull() 约束此属性不可为空
-实体类的继承、接口、导包以及序列化
-
-1234person.implementsSerializable(); // 序列化person.implementsInterface(&quot;com.sivan.A&quot;); // 实现 A 接口person.setSuperclass(&quot;com.sivan.B&quot;); // 继承 B 类person.addImport(&quot;">
+<meta name="twitter:title" content="ORM框架之GreenDao（三）多表关联">
+<meta name="twitter:description" content="GreenDao 中，实体间的关联通过 to-one 和 to-many 来实现。
+一对一在 GreenDao 中实现一对一的关联需要讲一个实体类的主键作为另一个实体类的外键。比如一个 Person 有一个 IDCard（身份证），这两者是一一对应的关系，同时，Person 有 name（主键）、sex 和 age 三个属性，IDCard 有 CardId 和 CardId（主键） 和 Valid">
 
 
 
@@ -116,7 +110,7 @@
   };
 </script>
 
-  <title> ORM框架之GreenDao（二）高级用法 | SIVAN'S BLOG </title>
+  <title> ORM框架之GreenDao（三）多表关联 | SIVAN'S BLOG </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -259,7 +253,7 @@
             
             
               
-                ORM框架之GreenDao（二）高级用法
+                ORM框架之GreenDao（三）多表关联
               
             
           </h1>
@@ -271,7 +265,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-10T17:51:16+08:00" content="2016-05-10">
+            <time itemprop="dateCreated" datetime="2016-05-10T22:17:22+08:00" content="2016-05-10">
               2016-05-10
             </time>
           </span>
@@ -301,8 +295,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/10/ORM框架之GreenDao（二）高级用法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/10/ORM框架之GreenDao（二）高级用法/" itemprop="commentsCount"></span>
+                <a href="/2016/05/10/ORM框架之GreenDao（三）多表关联/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/10/ORM框架之GreenDao（三）多表关联/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -330,28 +324,17 @@
       
 
       
-        <ul>
-<li><code>notNull()</code> 约束此属性不可为空</li>
-<li>实体类的继承、接口、导包以及序列化</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">person.implementsSerializable(); <span class="comment">// 序列化</span></span><br><span class="line">person.implementsInterface(<span class="string">"com.sivan.A"</span>); <span class="comment">// 实现 A 接口</span></span><br><span class="line">person.setSuperclass(<span class="string">"com.sivan.B"</span>); <span class="comment">// 继承 B 类</span></span><br><span class="line">person.addImport(<span class="string">"com.sivan.C"</span>); <span class="comment">// 导包</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>添加代码或注释</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entity.setCodeBeforeClass(<span class="string">""</span>) <span class="comment">// 在类前添加代码</span></span><br><span class="line"><span class="comment">// 在 `name` 属性前添加注解</span></span><br><span class="line">entity.addStringProperty(<span class="string">"abstract"</span>).codeBeforeField(<span class="string">"@SerializableName(_abstract)"</span>); </span><br><span class="line"><span class="comment">// 这些方法很简单，看名字就知道什么意思了，就不再解释了</span></span><br><span class="line">entity.addStringProperty(<span class="string">"test"</span>).codeBeforeSetter(<span class="string">""</span>).codeBeforeGetter(<span class="string">""</span>).codeBeforeGetterAndSetter(<span class="string">""</span>);</span><br></pre></td></tr></table></figure>
+        <p>GreenDao 中，实体间的关联通过 <code>to-one</code> 和 <code>to-many</code> 来实现。</p>
+<h2 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h2><p>在 GreenDao 中实现一对一的关联需要讲一个实体类的主键作为另一个实体类的外键。<br>比如一个 <code>Person</code> 有一个 <code>IDCard</code>（身份证），这两者是一一对应的关系，同时，<code>Person</code> 有 <code>name</code>（主键）、<code>sex</code> 和 <code>age</code> 三个属性，<br><code>IDCard</code> 有 <code>CardId</code> 和 <code>CardId</code>（主键） 和 <code>Validity</code> 两个属性。<br>那么可以将 <code>Person</code> 的主键作为 <code>IDCard</code> 的外键，将 <code>IDCard</code> 的主键作为 <code>Person</code> 的外键：</p>
 <a id="more"></a>
-<ul>
-<li>设置不同的属性名和数据库列名</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置实体类名为 age，数据库列名为 _age</span></span><br><span class="line">entity.addStringProperty(<span class="string">"age"</span>).columnName(<span class="string">"_age"</span>);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>有些时候，我们会在生成的实体类中添加一些属性和方法，但是每次重新运行 Java 项目的时候都会覆盖掉以前的代码，如果不想覆盖自己添加的代码，可以这样设置：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">schema.enableKeepSectionsByDefault(); <span class="comment">// 通过此 schema 创建的实体类都不会覆盖自定义的代码</span></span><br><span class="line">entity.setHasKeepSections(<span class="keyword">true</span>); <span class="comment">// 此实体类不会覆盖自定义的代码</span></span><br></pre></td></tr></table></figure>
-<p>通过上述方法运行 Java 项目后，会在实体类中多出以下注释代码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// KEEP INCLUDES - put your custom includes here</span></span><br><span class="line">在这里添加自定义的引用</span><br><span class="line"><span class="comment">// KEEP INCLUDES END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// KEEP FIELDS - put your custom fields here</span></span><br><span class="line">在这里添加自定义属性</span><br><span class="line"><span class="comment">// KEEP FIELDS END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// KEEP METHODS - put your custom methods here</span></span><br><span class="line">在这里添加自定义的方法</span><br><span class="line"><span class="comment">// KEEP METHODS END</span></span><br></pre></td></tr></table></figure>
-<p><em>注意：自定义的代码要写在注释中，并且注释代码不要修改</em></p>
-<p>暂时就想到这么多，以后有可能会补充，下一篇博客会讲一下如何使用 GreenDao 实现数据库的多表关联，即一对一，一对多，多对多的关系</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">   Entity person = schema.addEntity(<span class="string">"Person"</span>);</span><br><span class="line">   person.addStringProperty(<span class="string">"name"</span>).primaryKey();</span><br><span class="line">person.addStringProperty(<span class="string">"sex"</span>);</span><br><span class="line">person.addLongProperty(<span class="string">"age"</span>);</span><br><span class="line"></span><br><span class="line">Entity idCard = schema.addEntity(<span class="string">"IDCard"</span>);</span><br><span class="line">idCard.addLongProperty(<span class="string">"cardId"</span>).primaryKey();</span><br><span class="line">idCard.addLongProperty(<span class="string">"validity"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 两个实体类通过 Property 来建立关联，此操作会在 person 表中增加一个外键，此外键是 idCard 表中的主键</span></span><br><span class="line">Property personProperty = person.addLongProperty(<span class="string">"cardId"</span>).getProperty();</span><br><span class="line"><span class="comment">// 第一个参数为目标实体类，第二个参数为此表中的外键属性</span></span><br><span class="line">person.addToOne(idCard, personProperty);</span><br><span class="line"></span><br><span class="line">Property idCardProperty = idCard.addStringProperty(<span class="string">"name"</span>).getProperty();</span><br><span class="line">idCard.addToOne(person, idCardProperty);</span><br></pre></td></tr></table></figure>
+<p><em>注意：当使用多表关联的时候，就不要添加 id 主键了，因为需要将主键作为其它表的外键来使用</em></p>
+<h2 id="一对多"><a href="#一对多" class="headerlink" title="一对多"></a>一对多</h2><p>比如一个人去购物，会产生很多订单，一个人会有很多订单，但每个订单只能是一个人的，这样就会产生一对多的关联<br>这时需要将 <code>Person</code> 的主键作为 <code>Order</code> 的外键，因为我们可以通过订单找到唯一的 <code>Person</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Entity order = schema.addEntity(<span class="string">"Order"</span>);</span><br><span class="line">order.addLongProperty(<span class="string">"orderId"</span>).primaryKey();</span><br><span class="line">order.addLongProperty(<span class="string">"money"</span>).notNull();</span><br><span class="line"></span><br><span class="line">Property orderProperty = order.addStringProperty(<span class="string">"name"</span>).getProperty();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 构建一对多的关联</span></span><br><span class="line"><span class="comment">// 第一个参数为目标实体，第二个参数为目标属性，也就是 person 的主键（order 的外键）,第三个参数为属性名</span></span><br><span class="line">person.addToMany(order, orderProperty, <span class="string">"orders"</span>);</span><br><span class="line"><span class="comment">// 订单对用户为一对一的关联</span></span><br><span class="line">order.addToOne(person, orderProperty);</span><br></pre></td></tr></table></figure>
+<p>这样在生成的实体类中 <code>Person</code> 实体中会多出 <code>List&lt;Order&gt; orders</code> 的属性，并且提供了 getOrders()方法来得到用户的所有订单<br><code>Order</code> 实体类中会多出 <code>name</code> 属性，也就是 <code>Person</code> 表的主键，同时也提供了 getPerson()方法来得到该订单对应的用户</p>
+<h2 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h2><p>GreenDao 不支持多对多的关系，但是，我们可以通过其它方法来实现。<br>实现多对多关联需要建立一张中间表，其它两张表都要与中间表构建一对多的关联。<br>比如学生与课程之间的连系，一个学生可以选择多种课程，而一个课程可以被多个学生选择</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Entity course = schema.addEntity(<span class="string">"Course"</span>);</span><br><span class="line">course.addLongProperty(<span class="string">"courseId"</span>).primaryKey();</span><br><span class="line">course.addStringProperty(<span class="string">"courseName"</span>).notNull();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间表有其它两个表的主键作为外键</span></span><br><span class="line">Entity personCourse = schema.addEntity(<span class="string">"PersonCourse"</span>);</span><br><span class="line">Property personName = personCourse.addStringProperty(<span class="string">"name"</span>).getProperty();</span><br><span class="line">Property courseId = personCourse.addLongProperty(<span class="string">"courseId"</span>).getProperty();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 分别构建一对多的关联</span></span><br><span class="line">person.addToMany(personCourse, personName);</span><br><span class="line">course.addToMany(personCourse, courseId);</span><br><span class="line"></span><br><span class="line">personCourse.addToOne(person, personName);</span><br><span class="line">personCourse.addToOne(course, courseId);</span><br></pre></td></tr></table></figure>
+<p>这样生成的实体类中，<code>Person</code> 和 <code>Course</code> 实体中都会有 <code>List&lt;PersonCourse&gt; personCourseList</code> 属性，<br>再来看一下 <code>PersonCourse</code> 实体类，有 <code>getPerson()</code> 和 <code>getCourse()</code> 方法获得相应的学生和课程。<br>这样，我们通过学生和课程得到 <code>PersonCourse</code> 的集合后，通过这两个方法就可以得到相应的学生或者课程的信息</p>
 
       
     </div>
@@ -383,17 +366,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/05/09/ORM框架之GreenDao/" rel="next" title="ORM 框架之 GreenDao（一）基本使用">
-                <i class="fa fa-chevron-left"></i> ORM 框架之 GreenDao（一）基本使用
+              <a href="/2016/05/10/ORM框架之GreenDao（二）高级用法/" rel="next" title="ORM框架之GreenDao（二）高级用法">
+                <i class="fa fa-chevron-left"></i> ORM框架之GreenDao（二）高级用法
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/05/10/ORM框架之GreenDao（三）多表关联/" rel="prev" title="ORM框架之GreenDao（三）多表关联">
-                ORM框架之GreenDao（三）多表关联 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -419,8 +398,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/05/10/ORM框架之GreenDao（二）高级用法/"
-           data-title="ORM框架之GreenDao（二）高级用法" data-url="http://yoursite.com/2016/05/10/ORM框架之GreenDao（二）高级用法/">
+      <div class="ds-thread" data-thread-key="2016/05/10/ORM框架之GreenDao（三）多表关联/"
+           data-title="ORM框架之GreenDao（三）多表关联" data-url="http://yoursite.com/2016/05/10/ORM框架之GreenDao（三）多表关联/">
       </div>
     
   </div>
@@ -522,7 +501,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一对一"><span class="nav-number">1.</span> <span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一对多"><span class="nav-number">2.</span> <span class="nav-text">一对多</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多对多"><span class="nav-number">3.</span> <span class="nav-text">多对多</span></a></li></ol></div>
             
           </div>
         </section>
